@@ -15,7 +15,7 @@ func NewServer() *negroni.Negroni {
 		IndentJSON: true,
 		Extensions: []string{".html", ".jpg"},
 	})
-	//
+	// negroni 包中的初始化服务
 	n := negroni.Classic()
 	mx := mux.NewRouter()
 
@@ -34,8 +34,10 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 func testHandler(formatter *render.Render) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, req *http.Request) {
+		// 获取请求参数
 		vars := mux.Vars(req)
 		id := vars["id"]
+		// 使用 render 包中的 JSON 函数进行解析
 		formatter.JSON(w, http.StatusOK, struct{ ShowHello string }{"Hello " + id})
 	}
 }
